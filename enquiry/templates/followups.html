@@ -19,9 +19,7 @@
     <div class="col-sm-2">
       Last Enquiry
      </div>
-     <div class="col-sm-2">
-      Next Enquiry
-     </div>
+    
   </div>
 </div>
 {% for enquiry in enquiries %}
@@ -34,7 +32,7 @@
 
         {{ enquiry.name }}
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-3">
       {{enquiry.enquiry_for}}
       </div>
       <div class="col-sm-2">
@@ -43,12 +41,10 @@
       <div class="col-sm-2">
         {{enquiry.enquiry_date}}
       </div>
-      <div class="col-sm-2">
+      <div class="col-sm-1">
         {{enquiry.last_enquiry}}
       </div>
-      <div class="col-sm-2">
-        {{enquiry.next_enquiry}}
-      </div>
+     
       
     </div>
   </a>
