@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<h1>New Enquiry</h1>
+
+<form action="" method="post">
+    {% csrf_token %}
+  
+    {% for fm in form %}
+       
+        <div class="mb-3">
+            <label for="formGroupExampleInput" class="form-label"> {{ fm.label_tag }} </label>
+            {{ fm }}
+            
+            <!-- <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder"> -->
+            <small class="text-danger">
+                {{ fm.errors | striptags }}</small>
+            </small>
+          </div>
+    {% endfor %}
+    <input type="submit" value="Save">
+</form>
+
+{% endblock %}

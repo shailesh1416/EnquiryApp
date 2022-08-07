@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<h1 style="margin-bottom: 50px;">Dashboard</h1>
+
+<!-- <h3>Total Enquries Today :{{today}} </h3>
+<h3>Total Admissions Today :{{today_admissions}} </h3>
+<h3>Total Followups Today :{{today_followups}} </h3>
+ -->
+
+<div style="width:70%;" class="graph">
+    <h2>Follow Up Info</h2>
+    <span><b>Total :</b> {{today_followups}} </span>&nbsp;&nbsp;
+    <span><b>Completed :</b> {{today_followups_done}} </span>&nbsp;&nbsp;
+    <span><b>Done :</b> {{today_followups_done_percent}} % </span>
+    <div style="border:3px solid rgb(94, 12, 124);border-radius: 10px; ">
+        <div style="background-color: rgb(130, 130, 227);width:{{today_followups_done_percent}}%; height:50px;border-radius: 5px;"> </div>
+    </div>
+    
+</div>
+
+<div style="width:70%;" class="graph">
+    <h2>This Month's Enquiry Trend</h2>
+    <canvas id="month_trend"  style="width:2px;"></canvas>
+</div>
+
+<div style="width:70%;" class="graph">
+    <h2>This Month Course Enquiries</h2>
+    <canvas id="month_course_chart"  style="width:2px;"></canvas>
+</div>
+
+<div style="width:70%;" class="graph">
+    <h2>This Year's Enquiry Trend</h2>
+    <canvas id="yearly_trend"  style="width:2px;"></canvas>
+</div>
+
+
+<div style="width:70%;" class="graph">
+        <h2>Overall Course Enquiries</h2>
+        <canvas id="course_chart"  style="width:2px;"></canvas>
+</div>
+
+
+
+
+
+<script>
+    const ctx = document.getElementById('course_chart').getContext('2d');
+    const month = document.getElementById('month_course_chart').getContext('2d');
+    const month_trend = document.getElementById('month_trend').getContext('2d');
+    const yearly_trend = document.getElementById('yearly_trend').getContext('2d');
+
+// Button Controls
+    const yearly_chart = document.getElementById('yearly_chart');
+ 
+    
+    const myChart4 = new Chart(yearly_trend, {
+        type: 'bar',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May','Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                data: {{monthly_count}},
+                backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+                  
+                ],
+                borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+               
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    
+    const myChart3 = new Chart(month_trend, {
+        type: 'line',
+        data: {
+            labels: {{month_daywise_label}},
+            datasets: [{
+                label: 'Enquiry',
+                data: {{month_daywise_data}},
+                backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+                  
+                ],
+                borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+               
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+
+    const myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Computer Basics', 'Excel', 'Tally','Graphic Design','Programming','AutoCAD'],
+            datasets: [{
+                label: 'Enquiry',
+                data: {{course}},
+                backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+                  
+                ],
+                borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+               
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    const myChart2 = new Chart(month, {
+        type: 'bar',
+        data: {
+            labels: ['Computer Basics', 'Excel', 'Tally','Graphic Design','Programming','AutoCAD'],
+            datasets: [{
+                label: 'Enquiry',
+                data: {{this_month_course_enquiry}},
+                backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+                  
+                ],
+                borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+               
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+
+    </script>
+
+{% endblock %}

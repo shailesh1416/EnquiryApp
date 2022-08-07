@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+    {% if enquiry %}
+        <h2>✏️ Edit Enquiry</h2>
+    {% else %}
+        <h2>✨ Create New Enquiry</h2>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save Enquiry">
+    </form>
+    <a href="{% url 'enquiry' %}">
+        Cancel
+    </a>
+{% endblock %}

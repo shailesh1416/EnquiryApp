@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<div class="container mb-5">
+    <h1 class="alert alert-danger text-center">Enquiry Details</h1>
+    <div class="row">
+        <div class="col-sm-8">
+           <div class="card">
+            <div class="card-header">
+              Details of Candidate
+            </div>
+            <div class="card-body">
+             <!-- <img id="profile-photo" src="{{ candidate.profile_image.url }}" alt="No Image"> -->
+
+              <h5 class="card-title">Name: {{ enquiry.name}}</h5>
+              <p class="card-text">Date of Birth: {{enquiry.dob}}</p>
+              <p class="card-text">Gender : {{enquiry.gender}}</p>
+              <p class="card-text"><b>Phone : {{enquiry.phone}}</b></p>
+              <p class="card-text">Address : {{enquiry.address}}</p>
+              <p class="card-text"><b>Courses : {{enquiry.enquiry_for}}</b></p>
+              <p class="card-text">Enquiry Date: {{enquiry.enquiry_date}}</p>
+              <p class="card-text">Last Followd: {{enquiry.last_enquiry}}</p>
+              <p class="card-text">Next Folloup Date: {{enquiry.next_enquiry}}</p>
+
+
+          
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-sm-4">
+            <h4>Profile Photo</h4>
+             <img id="profile-photo" src="{{ candidate.profile_image.url }}" alt="No Image">
+        </div> -->
+    </div>
+</div>
+
+{% endblock %}

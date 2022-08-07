@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+    
+    <h2>✨ Search Enquiry</h2>
+    
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Search Enquiry">
+    </form>
+    <a href="{% url 'search' %}">
+        Cancel
+    </a>
+
+    <h2>✨ Found Enquiries</h2>
+    <div class="container rounded  border-primary sticky-top ">
+  <div class="row p-2 text-white bg-dark">
+    <div class="col-sm-3">
+      Student Name
+    </div>
+    <div class="col-sm-4">
+    Course Enquired
+    </div>
+    <div class="col-sm-2">
+      Phone
+    </div>
+    <div class="col-sm-2">
+     Enquiry Date
+    </div>
+    
+  </div>
+</div>
+{% for enquiry in enquiries %}
+<div class="container my-2 rounded border border-primary">
+<a href="{% url 'admission' enquiry.id %}" >
+
+    <div class="row mt-3">
+      <div class="col-sm-3">
+        {{ enquiry.id }}
+
+        {{ enquiry.name }}
+      </div>
+      <div class="col-sm-4">
+      {{enquiry.enquiry_for}}
+      </div>
+      <div class="col-sm-2">
+        {{enquiry.phone}}
+      </div>
+      <div class="col-sm-2">
+        {{enquiry.enquiry_date}}
+      </div>
+    
+      
+    </div>
+  </a>
+  </div>
+  {% endfor %}
+
+{% endblock %}
